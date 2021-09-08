@@ -36,7 +36,7 @@ const App = () => {
       name: newName,
       number: newNumber
     }
-    if (alertName(newName)) {
+    if (alertName(newName.toLowerCase())) {
       if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)) {
         const person = persons.find(p => p.name.toLowerCase() === newName.toLowerCase())
         const changedPerson = {...person, number: newNumber}
@@ -72,12 +72,18 @@ const App = () => {
               `Added ${personObject.name}`
             )       
         })
+      .catch(error => {
+        console.log(error.response.data)
+        setErrorStyle({color: 'red'})
+        setErrorMessage(error.response.data.error)
+        
+      })
 
     setTimeout(() => {
       setErrorMessage(null)
     }, 3000)
 
-    setPersons(persons.concat(personObject))
+
     setNewName('')
     setNewNumber('')
   }

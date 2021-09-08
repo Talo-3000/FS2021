@@ -1,6 +1,6 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/persons'
-
+const baseUrl = '/api/persons'
+axios.defaults.headers.post['Content-Type'] = 'application/json'
 const getAll = () => {
   const request = axios.get(baseUrl)
   return request.then(response => {
